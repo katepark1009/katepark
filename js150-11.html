@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        p {
+            display: inline;
+        }
+
+        .cel {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+    Write a JavaScript program to convert temperatures to and from Celsius, Fahrenheit.  Go to the editor
+    [ Formula : c/5 = (f-32)/9 [ where c = temperature in Celsius and f = temperature in Fahrenheit ] 
+    Expected Output : 
+    60°C is 140 °F
+    45°F is 7.222222222222222°C */-->
+
+    <input type="text" class="cel" id="1st" placeholder="Celsius">
+    <button id="cel">submit</button>
+    <p>°C is </p>
+    <p id="resultFahren"></p><p></p>°F.</p>
+<br>
+    <input type="text" class="fah" id="2nd" placeholder="Fahrenheit">
+    <button id="fah">submit</button>
+    <p>°F is </p>
+    <p id="resultCel"><p></p>°C.</p>
+
+    <script>
+        document.getElementById("cel").addEventListener("click", function (fromCel) {
+            let celsius = document.getElementById("1st").value;
+            let resultFahren = celsius * 1.8 + 32;
+            document.getElementById("resultFahren").innerHTML = Math.floor(resultFahren)
+        });
+
+        document.getElementById("fah").addEventListener("click", function (fromFahren) {
+            let fahren = document.getElementById("2nd").value;
+                let resultCel = (fahren - 32) / 1.8;
+                document.getElementById("resultCel").innerHTML = Math.floor(resultCel)
+        });
+          
+    </script>
+</body>
+
+</html>
