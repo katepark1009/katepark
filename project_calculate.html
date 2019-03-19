@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="description" content="practice project" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>JS Bin</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <style>
+      .opContainer {
+        display: inline-block;
+      }
+      #container > * {
+        vertical-align: middle;
+      }
+      .opContainer > button {
+        display: block;
+        width: 20px;
+        height: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <span id="num1" contentEditable>4</span>
+      <div class="opContainer">
+        <button id="plus">+</button>
+        <button id="minus">-</button>
+        <button id="multiply">x</button>
+        <button id="divid">/</button>
+      </div>
+      <span id="num2" contentEditable>12</span> =
+      <span id="result" contentEditable>?</span>
+    </div>
+    <script>
+      function calculateValue(event) {
+        var buttonClicked = this.event.target.id;
+        //use "this" to get the element that triggered the event
+        //get/store the text value from inside the element that triggered the event
+        var num1 = $("#num1").text();
+        //get/store the text value from the ID num1 element
+        var num1ToNumber = parseInt(num1);
+        //convert it to a number (it's a string right now)
+        var num2 = $("#num2").text();
+        //get/store the text value from the ID num2 element
+        var num2ToNumber = parseInt(num2);
+        //convert it to a number
+        var result = "";
+        console.log(num1ToNumber + num2ToNumber);
+        //make a variable result, leave it empty
+        var textValue = $("<button>").text();
+        //use the text value to determine which action to take
+        if (buttonClicked === "plus") {
+          result = num1ToNumber + num2ToNumber;
+        } else if (buttonClicked === "minus") {
+          result = num1ToNumber - num2ToNumber;
+        } else if (buttonClicked === "multiply") {
+          result = num1ToNumber * num2ToNumber;
+        } else if (buttonClicked === "divid") {
+          result = num1ToNumber / num2ToNumber;
+        }
+        // if the text is a '+'
+        //add the number from num1 and the number from num2, save the value in result
+        // if the text is a '-'
+        //subtract the numbers and store in result
+        // if the text is a 'x'
+        //multiply the numbers and store in result
+        // if the text is a '/'
+        //multiply the numbers and store in result
+        $("#result").text(result);
+        // use the result to change the text inside the #result element
+      }
+      function applyClickHandlers() {
+        $("button").click(function() {
+          calculateValue(event);
+
+          //apply a click handler to all buttons INSIDE the element with a class of opContainer
+          //if it is clicked, call the calculateValue function
+        });
+      }
+      $(document).ready(initializeApp);
+
+      function initializeApp() {
+        applyClickHandlers();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="description" content="practice project" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>JS Bin</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <style>
+      body > div {
+        width: 45%;
+        float: left;
+        box-sizing: border-box;
+        border: 2px solid black;
+        height: 100vh;
+      }
+
+      .name {
+        width: 80%;
+        margin: 2% auto;
+        padding: 5%;
+        background-color: lavender;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="list"></div>
+    <div id="repo"></div>
+    <script>
+      var jsbin = "stupid";
+      /*The purpose of this app is to allow the names to be clicked
+on and move from one list to the other list.
+So for example, if I clicked on "Dennis", the blue Dennis
+box would move to the right list.  If I click on the 
+"Dennis" box on the right column, it would move to the
+left column */
+      function applyClickHandlers() {
+        //add a click handler onto each div with a class of name
+        $(".name").click(function() {
+          shiftName();
+          //when it is clicked, it should call "shiftName"
+        });
+      }
+
+      function shiftName(event) {
+        var clickedName = this.event.target;
+        console.log(clickedName);
+        //get the element to target from "this"
+        var parentElement = $(clickedName).parent();
+        //use jquery's parent to get the parent of the div, and save that into a variable "parentElement"
+        var parentID = $(parentElement).attr("id");
+        console.log(parentID);
+        //get the ID of the parent element with the jquery attr command
+        if (parentID === "list") {
+          $("#repo").append(clickedName);
+        } else {
+          $("#list").append(clickedName);
+        }
+        //if the ID is list, append the target element in the #repo div
+        //otherwise, append the target div into the #list div
+      }
+
+      /* don't change this code*/
+
+      $(document).ready(initializeApp);
+
+      function initializeApp() {
+        addNames();
+        applyClickHandlers();
+      }
+
+      function addNames() {
+        var names = ["Dan", "Nathan", "Dennis", "Charles"];
+        for (var i = 0; i < names.length; i++) {
+          var div = $("<div>", {
+            class: "name"
+          }).text(names[i]);
+          $("#list").append(div);
+        }
+      }
+    </script>
+  </body>
+</html>

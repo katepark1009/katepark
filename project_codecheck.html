@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      #numbers {
+        width: 49%;
+        font-size: 0;
+      }
+      .row {
+        text-align: center;
+        width: 100%;
+      }
+      .row > button {
+        width: 33%;
+        font-size: 1rem;
+      }
+      .right {
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="display">Enter your passcode</div>
+    <div id="numbers">
+      <div class="row">
+        <button id="1">1</button>
+        <button id="2">2</button>
+        <button id="3">3</button>
+      </div>
+      <div class="row">
+        <button id="4">4</button>
+        <button id="5">5</button>
+        <button id="6">6</button>
+      </div>
+      <div class="row">
+        <button id="7">7</button>
+        <button id="8">8</button>
+        <button id="9">9</button>
+      </div>
+      <div class="row right">
+        <button id="0">0</button>
+        <button id="pound">#</button>
+      </div>
+    </div>
+    <script>
+      //input passcode checker
+      //make an app that allows you to punch in a set of numbers
+      //and then press # to enter the number and check if it is right or not
+      //after you check, right or wrong, you clear the attempt
+      $(document).ready(initializeApp);
+
+      function initializeApp() {
+        $("button").click(function() {
+          handleInput();
+          //add a click handler to every button, call "handleInput" when it is clicked
+        });
+      }
+
+      var currentPasscode = "";
+
+      function handleInput(event) {
+        var passcode = "840241";
+        //the button that was pressed will be 'this'
+        $("#display").removeAttr("style"); //진짜...이거 어디다 넣는지 고민... 버튼 누를때 리셋필요하므로 처음에 넣음.
+        var clickedButtonText = this.event.target.innerText; //innerText생각한 나는 참 잘한듯.
+        //get the text from the button that was pressed
+        if (clickedButtonText === "#") {
+          if (checkPasscode(currentPasscode, passcode)) {
+            displaySuccess(passcode);
+            currentPasscode = "";
+          } else {
+            displayError();
+            currentPasscode = "";
+          }
+        } else {
+          currentPasscode = currentPasscode.concat(clickedButtonText); //concat to combine text
+          $("#display").text(currentPasscode);
+        }
+        //if the text is "#", see if the number entered was equal to the passcode variable,
+        //call checkPasscode
+        //if checkPasscode returns true, pass in the passcode variable as an argument
+        //call displaySuccess.
+        //otherwise
+        //call displayError
+        //clear the currentPasscode back to its original value
+        //otherwise
+        //add the text to the value inside currentPasscode, store the result into currentPasscode
+        //also change the ID display element's text to be the current value of currentPasscode
+      }
+
+      function checkPasscode(currentPasscode, passcode) {
+        if (passcode === currentPasscode) {
+          return true;
+        } else {
+          return false;
+        }
+        //check if passcode is the same as currentPasscode
+        //return true if they are the same
+        //return false if they are not
+      }
+
+      function displaySuccess() {
+        //change the text in #display to be "SUCCESS!" in green
+        $("#display")
+          .text("SUCCESS!")
+          .css({ color: "green" });
+      }
+
+      function displayError() {
+        $("#display")
+          .text("Fail!")
+          .css({ color: "red" });
+        //change the text in #display to be "FAIL!" in red
+      }
+    </script>
+  </body>
+</html>
